@@ -5,6 +5,7 @@ import cors from 'cors'
 
 import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
+import { router as postsRouter } from './routes/posts.js'
 
 import('./config/database.js')
 
@@ -15,6 +16,7 @@ app.use(logger('dev'))
 app.use(express.json())
 
 app.use('/api/profiles', profilesRouter)
+app.use('/api/posts', postsRouter)
 app.use('/api/auth', authRouter)
 
 app.use(function (req, res, next) {
@@ -22,6 +24,7 @@ app.use(function (req, res, next) {
 })
 
 app.use(function (err, req, res, next) {
+  console.log('my error: ',err)
   res.status(err.status || 500).json({ err: err.message })
 })
 
