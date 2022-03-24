@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import { postSchema } from './post'
 
 const collectionSchema = new mongoose.Schema({
     Profile: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
@@ -12,5 +12,6 @@ const collectionSchema = new mongoose.Schema({
 const Collection = mongoose.model('Collection', collectionSchema)
 
 export {
-    Collection
+    collectionSchema,
+    Collection,
 }

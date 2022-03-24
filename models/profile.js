@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { collectionSchema } from './collection'
 
 
 const profileSchema = new mongoose.Schema({
@@ -7,7 +8,7 @@ const profileSchema = new mongoose.Schema({
   posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   following: [{type: mongoose.Schema.Types.ObjectId, ref: "Profile"}],
   followers: [{type: mongoose.Schema.Types.ObjectId, ref: "Profile"}],
-  // collections: {type: collectionSchema},
+  collections: {type: [collectionSchema], ref: 'Collection'},
   chatHistories: [{type: mongoose.Schema.Types.ObjectId, ref: "ChatHistory"}],
   bio: String,
 },{
