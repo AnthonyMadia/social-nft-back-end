@@ -18,6 +18,11 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(formData.parse())
 
+// app.use((req,res,next)=>{
+//   console.log('req body in middle ware: ',req.body)
+//   next()
+// })
+
 app.use('/api/profiles', profilesRouter)
 app.use('/api/posts', postsRouter)
 app.use('/api/auth', authRouter)
