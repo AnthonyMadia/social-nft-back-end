@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { postSchema } from './post'
+import { postSchema } from './post.js'
 
 const collectionSchema = new mongoose.Schema({
     Profile: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { collectionSchema } from './collection'
+import { collectionSchema } from './collection.js'
 
 
 const profileSchema = new mongoose.Schema({

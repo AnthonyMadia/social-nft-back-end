@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { commentSchema } from './comment'
+import { commentSchema } from './comment.js'
 
 const postSchema = new mongoose.Schema({
     images: [String],

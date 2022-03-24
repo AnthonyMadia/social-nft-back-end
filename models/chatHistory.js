@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { messageSchema } from './message'
+import { messageSchema } from './message.js'
 
 const chatHistorySchema = new mongoose.Schema({ 
     messages : {type: [messageSchema], ref: 'Message'},
