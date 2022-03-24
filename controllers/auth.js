@@ -2,7 +2,9 @@ import { User } from '../models/user.js'
 import { Profile } from '../models/profile.js'
 import jwt from 'jsonwebtoken'
 
+
 function signup(req, res) {
+  console.log('sign up sanity check')
   Profile.findOne({ email: req.body.email })
   .then(profile => {
     if (profile) {
