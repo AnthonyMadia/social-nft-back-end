@@ -2,16 +2,16 @@ import mongoose from 'mongoose'
 import { commentSchema } from './comment.js'
 
 const postSchema = new mongoose.Schema({
-    images: [String],
-    caption: String,
-    numLikes: Number,
-    comments: {type: [commentSchema], ref: 'Comment'},
-    likedBy: [{type: mongoose.Schema.ObjectId, ref: 'Profile'}],
+    images: {type: [String], required: true},
+    caption: {type: String, default:''},
+    numLikes: {type: Number, default: 0},
+    comments: {type: [commentSchema], ref: 'Comment', default: []},
+    likedBy: [{type: mongoose.Schema.ObjectId, ref: 'Profile', default:[]}],
     dateCreated: {
         type: Date,
         default: Date.now 
     },
-    author: {type: mongoose.Schema.ObjectId, ref: 'Profile'}
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'}
     
 },{ timestamps: true})
 
