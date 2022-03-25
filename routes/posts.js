@@ -10,6 +10,8 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 
+router.get('/', checkAuth, postsCtrl.getNewsFeed)
 router.post('/', checkAuth, postsCtrl.create)
+
 
 export { router }
