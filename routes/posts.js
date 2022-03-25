@@ -13,7 +13,9 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.use(initPost)
 
-router.get('/', checkAuth, postsCtrl.getNewsFeed)
+//router.get('/', checkAuth, postsCtrl.getNewsFeed)
+router.get('/newsfeed', checkAuth, postsCtrl.getNewsFeed)
+router.get('/explore', checkAuth, postsCtrl.getExploreFeed)
 router.post('/', checkAuth, postsCtrl.create)
 
 

@@ -49,7 +49,21 @@ function getNewsFeed(req, res) {
   })
 }
 
+function getExploreFeed (req, res) {
+  Post.find({})
+  .populate('author')
+  .then(posts => {
+    console.log(posts)
+    res.json(posts)
+  })
+  .catch(err => {
+    console.log('MY ERROR:', err)
+    res.status(500).json(err)
+  })
+}
+
 export { 
   create,
-  getNewsFeed
+  getNewsFeed,
+  getExploreFeed
 }
