@@ -22,7 +22,7 @@ function create(req, res) {
     const imageFile = req.files.images.path
     cloudinary.uploader.upload(imageFile, {tags: `${req.body.name}`})
     .then(image => {
-      req.body.photo = image.url
+      req.body.images = image.url
       Post.create(req.body)
       .then(post => {
         post.populate('author')
