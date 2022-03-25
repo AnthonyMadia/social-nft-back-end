@@ -12,7 +12,7 @@ function index(req, res) {
 function show (req, res) {
 
   //change query to find username not name when username implemented:
-  Profile.findOne({name: req.params.username})
+  Profile.findOne({email: req.params.username})
   .then(profile => res.json(profile))
   .catch(err => {
     console.log(err)
