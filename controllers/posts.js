@@ -3,8 +3,8 @@ import { v2 as cloudinary } from 'cloudinary'
 
 function create(req, res) {
   console.log('req:' ,req.body)
-  //req.body.owner = req.user.profile
-  //console.log(req.body)
+  req.body.author = req.user.profile
+  console.log('BODY.Author is', req.body.author)
   if (req.body.images === 'undefined' || !req.files['images']) {
     delete req.body['images']
     Post.create(req.body)
@@ -39,12 +39,14 @@ function create(req, res) {
 }
 
 function getNewsFeed(req, res) {
+  console.log('author is!!!:', req.body.author)
   Post.find({})
+  //.populate('author')
   .then(posts => {
     res.json(posts)
   })
   .catch(err => {
-    console.log(err)
+    console.log('MY ERROR:', err)
     res.status(500).json(err)
   })
 }
