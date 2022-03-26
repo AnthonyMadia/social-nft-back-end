@@ -35,5 +35,6 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.index)
 router.get('/:username', checkAuth, profilesCtrl.show)
+router.patch('/follow', checkAuth, profilesCtrl.follow)
 
 export { router }
