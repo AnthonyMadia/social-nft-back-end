@@ -1,7 +1,16 @@
 import { Post } from '../models/post.js'
+import { Profile } from '../models/profile.js'
 import { v2 as cloudinary } from 'cloudinary'
 
 function create(req, res) {
+  function addPostToProfile(post,profileID) {
+    Profile.findById(profileID)
+    .then(profile => {profile.posts.push(post); return profile})
+    .then(profile => profile.save())
+    .catch(err=>console.log('addPostoProfile Error: ', err))
+  }
+
+
   req.body.author = req.user.profile
   if (req.body.images === 'undefined' || !req.files['images']) {
     delete req.body['images']
@@ -9,6 +18,7 @@ function create(req, res) {
     .then(post => {
       post.populate('author')
       .then(populatedPost => {
+        addPostToProfile(populatedPost,req.user.profile)
         res.status(201).json(populatedPost)
       })
     })
@@ -25,6 +35,7 @@ function create(req, res) {
       .then(post => {
         post.populate('author')
         .then(populatedPost => {
+          addPostToProfile(populatedPost,req.user.profile)
           res.status(201).json(populatedPost)
         })
       })
