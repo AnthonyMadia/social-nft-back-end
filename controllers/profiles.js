@@ -13,6 +13,7 @@ function show (req, res) {
 
   //change query to find username not name when username implemented:
   Profile.findOne({email: req.params.username})
+  .populate('posts')
   .then(profile => res.json(profile))
   .catch(err => {
     console.log(err)
