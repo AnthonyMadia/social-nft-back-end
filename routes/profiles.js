@@ -36,5 +36,6 @@ router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.index)
 router.get('/:username', checkAuth, profilesCtrl.show)
 router.patch('/follow', checkAuth, profilesCtrl.follow)
+router.patch('/unfollow', checkAuth, profilesCtrl.unfollow)
 
 export { router }
