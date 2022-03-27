@@ -8,6 +8,7 @@ import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
 import { router as postsRouter } from './routes/posts.js'
 import { router as commentsRouter } from './routes/comments.js'
+import { router as messagesRouter } from './routes/messages.js'
 
 import('./config/database.js')
 
@@ -27,6 +28,7 @@ app.use(formData.parse())
 app.use('/api/profiles', profilesRouter)
 app.use('/api/posts', postsRouter)
 app.use('/api/comments', commentsRouter)
+app.use('/api/messages', messagesRouter)
 app.use('/api/auth', authRouter)
 
 app.use(function (req, res, next) {
