@@ -2,13 +2,14 @@ import mongoose from 'mongoose'
 
 const commentSchema = new mongoose.Schema({ 
     text: String,
-    numLikes: Number,
+    //numLikes: Number,
     likedBy: [{type: mongoose.Schema.ObjectId, ref: 'Profile'}],
     date: {
         type: Date,
         default: Date.now 
     },
-    author: {type: mongoose.Schema.ObjectId, ref: 'Profile'}
+    author: {type: mongoose.Schema.ObjectId, ref: 'Profile'},
+    post: {type: mongoose.Schema.ObjectId, ref: 'Post'}
 
 },{ timestamps: true})
 
