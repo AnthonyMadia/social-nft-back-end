@@ -19,5 +19,6 @@ router.use(decodeUserFromToken)
 //router.post('/', checkAuth, postsCtrl.create)
 
 router.post('/', checkAuth, commentsCtrl.create)
+router.patch('/likes', checkAuth, commentsCtrl.toggleLike)
 
 export { router }

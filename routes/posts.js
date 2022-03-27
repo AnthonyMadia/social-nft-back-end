@@ -17,6 +17,7 @@ router.use(initPost)
 router.get('/newsfeed', checkAuth, postsCtrl.getNewsFeed)
 router.get('/explore', checkAuth, postsCtrl.getExploreFeed)
 router.post('/', checkAuth, postsCtrl.create)
+router.patch('/likes', checkAuth, postsCtrl.toggleLike)
 
 
 export { router }

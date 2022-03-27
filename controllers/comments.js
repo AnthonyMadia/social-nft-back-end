@@ -20,6 +20,24 @@ function create (req, res) {
     
 }
 
+function toggleLike (req, res) {
+    Post.findById(req.body.postID)
+    .then(post => {
+        let commentToUpdate = post.comments.filter(comment=> comment._id.equals(req.body.commentID))[0]
+        if (!commentToUpdate.likedBy) commentToUpdate.likedBy = Array()
+
+        if (commentToUpdate.likedBy.includes(req.body.profileID)) {
+            commentToUpdate.likedBy = commentToUpdate.likedBy.filter(profID => profID != req.body.profileID)
+        } else {
+            commentToUpdate.likedBy.push(req.body.profileID)
+        }
+        post.save()
+        res.json(commentToUpdate.likedBy)
+    })
+    .catch(err=>console.log("MY ERROR: ", err))
+}
+
 export {
-    create
+    create,
+    toggleLike
 }

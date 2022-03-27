@@ -51,7 +51,7 @@ function getNewsFeed(req, res) {
   Post.find({})
   .populate('author')
   .then(posts => {
-    console.log(posts)
+    //console.log(posts)
     res.json(posts)
   })
   .catch(err => {
@@ -64,7 +64,7 @@ function getExploreFeed (req, res) {
   Post.find({})
   .populate('author')
   .then(posts => {
-    console.log(posts)
+    //console.log(posts)
     res.json(posts)
   })
   .catch(err => {
@@ -73,8 +73,30 @@ function getExploreFeed (req, res) {
   })
 }
 
+function toggleLike(req, res) {
+  console.log('sanity check - toggle like controller')
+  console.log('req body - ', req.body)
+
+  Post.findById(req.body.postID)
+  .then(post => {
+    if (post.likedBy?.includes(req.body.profileID)) {
+      post.likedBy = post.likedBy.filter(profID => !profID.equals(req.body.profileID))
+    } else {
+      if (post.likedBy) {
+        post.likedBy.push(req.body.profileID)
+      } else {
+        post.likedBy = [req.body.profileID]
+      }
+    }
+    console.log('finished likedBy: ', post.likedBy)
+    post.save()
+    res.json(post.likedBy)
+  })
+}
+
 export { 
   create,
   getNewsFeed,
-  getExploreFeed
+  getExploreFeed,
+  toggleLike
 }
