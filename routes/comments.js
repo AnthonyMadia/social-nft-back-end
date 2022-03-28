@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import * as commentsCtrl from '../controllers/comments.js'
 import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
+import { checkAuthor } from '../middleware/author.js'
 //import { initPost } from '../middleware/post.js'
 
 const router = Router()
@@ -20,5 +21,7 @@ router.use(decodeUserFromToken)
 
 router.post('/', checkAuth, commentsCtrl.create)
 router.patch('/likes', checkAuth, commentsCtrl.toggleLike)
+
+router.delete('/delete',checkAuth, checkAuthor, (req, res, next)=>{console.log('sanity check middleware success for delete'); return next()}, commentsCtrl.delete)
 
 export { router }

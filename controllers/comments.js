@@ -37,7 +37,19 @@ function toggleLike (req, res) {
     .catch(err=>console.log("MY ERROR: ", err))
 }
 
+function deleteComment (req, res) {
+    console.log('sanity check delete comment', req.body.postID)
+
+    Post.findById(req.body.postID)
+    .then(post => {
+        post.comments = post.comments.filter(comment => comment._id != req.body.commentID)
+        post.save()
+        return res.json(req.body.commentID)
+    }).catch(error => res.status(500).json(error))
+}
+
 export {
     create,
-    toggleLike
+    toggleLike,
+    deleteComment as delete
 }

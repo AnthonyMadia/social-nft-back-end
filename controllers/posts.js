@@ -94,9 +94,17 @@ function toggleLike(req, res) {
   })
 }
 
+function deletePost (req, res) {
+  //console.log('delete post sanity check', req.body.postID)
+  Post.findByIdAndDelete(req.body.postID)
+  .then(deletedDoc => res.json(deletedDoc))
+  .catch(error => res.status(500).json(error))
+}
+
 export { 
   create,
   getNewsFeed,
   getExploreFeed,
-  toggleLike
+  toggleLike,
+  deletePost as delete
 }
