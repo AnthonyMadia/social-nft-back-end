@@ -18,6 +18,8 @@ router.use(initPost)
 router.get('/newsfeed', checkAuth, postsCtrl.getNewsFeed)
 router.get('/explore', checkAuth, postsCtrl.getExploreFeed)
 router.post('/', checkAuth, postsCtrl.create)
+router.put('/update', checkAuth, postsCtrl.update)
+
 router.patch('/likes', checkAuth, postsCtrl.toggleLike)
 
 router.delete('/delete', checkAuth, checkAuthor, postsCtrl.delete)

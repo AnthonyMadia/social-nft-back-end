@@ -79,6 +79,7 @@ function toggleLike(req, res) {
 
   Post.findById(req.body.postID)
   .then(post => {
+    if (post.likedBy == null) post.likedBy = []
     if (post.likedBy?.includes(req.body.profileID)) {
       post.likedBy = post.likedBy.filter(profID => !profID.equals(req.body.profileID))
     } else {
@@ -101,10 +102,26 @@ function deletePost (req, res) {
   .catch(error => res.status(500).json(error))
 }
 
+function update(req, res) {
+  cloudinary.uploader.upload(req.files.images.path, {tags: `${req.body.name}`})
+  .then(image => {
+    Post.findById(req.body.postID)
+    .then(post => {
+      post.caption = req.body.caption
+      post.images = [image.url]
+      post.save()
+      res.json(post)
+    })
+    .catch(error => res.status(500).json(error))
+  })
+  .catch(error => res.status(500).json(error))
+}
+
 export { 
   create,
   getNewsFeed,
   getExploreFeed,
   toggleLike,
-  deletePost as delete
+  deletePost as delete,
+  update
 }
