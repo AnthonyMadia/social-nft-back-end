@@ -54,11 +54,19 @@ function createMessage(req, res) {
     ChatHistory.findById(req.body.chatHistory)
     .then(chatHistory => {
         let newMessage = {author: req.body.author, text: req.body.text}
-        if (chatHistory.messages) {
-            chatHistory.messages.push(newMessage)
-        } else {
-            chatHistory.messages = [newMessage]
+        try{
+            if (chatHistory.messages) {
+                chatHistory.messages.push(newMessage)
+            } else {
+                chatHistory.messages = [newMessage]
+            }
         }
+
+        catch (error) {
+            console.log('why did it crash?', error)
+            return
+        }
+
 
         chatHistory.save()
         res.json(chatHistory)
