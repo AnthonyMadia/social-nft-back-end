@@ -15,6 +15,8 @@ router.use(decodeUserFromToken)
 
 //router.get('/', checkAuth, postsCtrl.getNewsFeed)
 router.get('/', checkAuth, messagesCtrl.getChatHistories)
+router.post('/chat-history/new', checkAuth, messagesCtrl.createChatHistory)
+router.post('/chat-history/new-message', checkAuth, messagesCtrl.createMessage)
 
 
 export { router }

@@ -94,4 +94,9 @@ function unfollow(req,res){
   })
 }
 
-export { index, show, follow, unfollow }
+function showSelect (req, res) {
+  Profile.find({_id: {$in: req.body.profileList}})
+  .then(profiles => res.json(profiles))
+}
+
+export { index, show, follow, unfollow, showSelect }
