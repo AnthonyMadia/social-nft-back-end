@@ -48,28 +48,38 @@ function create(req, res) {
 }
 
 function getNewsFeed(req, res) {
-  Post.find({})
-  .populate('author')
-  .then(posts => {
-    //console.log(posts)
-    res.json(posts)
-  })
-  .catch(err => {
-    console.log('MY ERROR:', err)
-    res.status(500).json(err)
+  Profile.findById(req.user.profile)
+  .then(profile => {
+    Post.find({author : {$in : [...profile.following, profile._id]}})
+    .populate('author')
+    .then(posts => {
+      posts.sort((a,b) => a.dateCreated > b.dateCreated ? -1 : 1)
+      console.log('returning news feed posts: ', posts?.length)
+      //console.log(posts)
+      res.json(posts)
+    })
+    .catch(err => {
+      console.log('MY ERROR:', err)
+      res.status(500).json(err)
+    })
   })
 }
 
-function getExploreFeed (req, res) {
-  Post.find({})
-  .populate('author')
-  .then(posts => {
-    //console.log(posts)
-    res.json(posts)
-  })
-  .catch(err => {
-    console.log('MY ERROR:', err)
-    res.status(500).json(err)
+function getExploreFeed(req, res) {
+  Profile.findById(req.user.profile)
+  .then(profile => {
+    Post.find({author : {$nin : [...profile.following, profile._id]}})
+    .populate('author')
+    .then(posts => {
+      posts.sort((a,b) => a.dateCreated > b.dateCreated ? -1 : 1)
+      console.log('returning news feed posts: ', posts)
+      //console.log(posts)
+      res.json(posts)
+    })
+    .catch(err => {
+      console.log('MY ERROR:', err)
+      res.status(500).json(err)
+    })
   })
 }
 
@@ -125,4 +135,3 @@ export {
   deletePost as delete,
   update
 }
-//save
