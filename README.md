@@ -69,3 +69,6 @@ git push -u origin main
 ```
 
 You're done!
+
+# Credits
+noprfofilepic.jpg resource from Instagram.com

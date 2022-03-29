@@ -1,4 +1,5 @@
 import { Profile } from '../models/profile.js'
+import { v2 as cloudinary } from 'cloudinary'
 
 function index(req, res) {
   Profile.find({})
@@ -99,4 +100,20 @@ function showSelect (req, res) {
   .then(profiles => res.json(profiles))
 }
 
-export { index, show, follow, unfollow, showSelect }
+function update(req, res) {
+  console.log('update: ', req.files)
+  cloudinary.uploader.upload(req.files.profilePicture.path, {tags: 'profilePicture'})
+  .then(image => {
+    Profile.findById(req.user.profile)
+    .then(profile => {
+      profile.bio = req.body.bio
+      profile.profilePicture = image.url
+      profile.save()
+      res.json(profile)
+    })
+    .catch(error => res.status(500).json(error))
+  })
+  .catch(error => res.status(500).json(error))
+}
+
+export { index, show, follow, unfollow, showSelect, update }

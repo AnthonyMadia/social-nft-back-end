@@ -37,6 +37,7 @@ router.get('/', checkAuth, profilesCtrl.index)
 router.get('/:username', checkAuth, profilesCtrl.show)
 router.patch('/follow', checkAuth, profilesCtrl.follow)
 router.patch('/unfollow', checkAuth, profilesCtrl.unfollow)
+router.patch('/update', checkAuth, profilesCtrl.update)
 router.post('/select', checkAuth, profilesCtrl.showSelect)
 
 export { router }
