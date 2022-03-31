@@ -3,6 +3,8 @@ import { Profile } from '../models/profile.js'
 import { v2 as cloudinary } from 'cloudinary'
 
 function create(req, res) {
+  console.log('create post req.body: ', req.body)
+
   function addPostToProfile(post,profileID) {
     Profile.findById(profileID)
     .then(profile => {profile.posts.push(post); return profile})
@@ -113,12 +115,14 @@ function deletePost (req, res) {
 }
 
 function update(req, res) {
+  console.log('update req body: ', req.body)
   cloudinary.uploader.upload(req.files.images.path, {tags: `${req.body.name}`})
   .then(image => {
     Post.findById(req.body.postID)
     .then(post => {
       post.caption = req.body.caption
       post.images = [image.url]
+      //post.MetaDataURL = [req.body.MetaDataURL]
       post.save()
       res.json(post)
     })
