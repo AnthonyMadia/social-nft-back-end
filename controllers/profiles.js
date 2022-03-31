@@ -116,4 +116,20 @@ function update(req, res) {
   .catch(error => res.status(500).json(error))
 }
 
-export { index, show, follow, unfollow, showSelect, update }
+function getSuggestions (req, res) {
+  //console.log('get suggestions sanity check')
+  Profile.find({})
+  .then(profiles => {
+    profiles.sort((a,b)=> b.followers.length - a.followers.length)
+    if (profiles.length < 10) {
+      res.json(profiles)
+    }
+    else {
+      profiles = profiles.slice(0,10)
+      console.log('popular profiles: ', profiles)
+      res.json(profiles)
+    }
+  })
+}
+
+export { index, show, follow, unfollow, showSelect, update, getSuggestions }
