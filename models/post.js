@@ -3,6 +3,7 @@ import { commentSchema } from './comment.js'
 
 const postSchema = new mongoose.Schema({
     images: {type: [String], required: true},
+    MetaDataURL: {type: [String]}, 
     caption: {type: String, default:''},
     comments: {type: [commentSchema], ref: 'Comment', default: []},
     likedBy: [{type: mongoose.Schema.ObjectId, ref: 'Profile', default:[]}],

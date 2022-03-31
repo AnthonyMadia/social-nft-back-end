@@ -12,6 +12,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
+//router.use((req,res,next) => {console.log('incoming request: ', req); next()})
 router.use(initPost)
 
 //router.get('/', checkAuth, postsCtrl.getNewsFeed)
